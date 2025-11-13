@@ -23,8 +23,9 @@ RUN mvn package -DskipTests
 # We use a much smaller, secure base image with just the Java Runtime Environment (JRE)
 # to keep the final deployment size small (security best practice).
 # ----------------------------------------------------------------------
-# FIX: The previous tag '17-jre-alpine' was incorrect. Using '17-alpine-jre'.
-FROM amazoncorretto:17-alpine-jre
+# FIX 2: Correcting the runtime image tag again. Using '17-alpine', which is the standard
+# minimal Alpine image containing the JRE.
+FROM amazoncorretto:17-alpine
 
 # Set the working directory for the runtime container
 WORKDIR /app
