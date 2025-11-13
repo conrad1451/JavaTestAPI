@@ -15,6 +15,7 @@ COPY src ./src
 
 # Build the application (this command runs 'mvn clean package')
 # The package command generates the final runnable JAR file.
+# We skip tests here to speed up the build
 RUN mvn package -DskipTests
 
 # ----------------------------------------------------------------------
@@ -22,13 +23,14 @@ RUN mvn package -DskipTests
 # We use a much smaller, secure base image with just the Java Runtime Environment (JRE)
 # to keep the final deployment size small (security best practice).
 # ----------------------------------------------------------------------
-FROM amazoncorretto:17-jre-alpine
+# FIX: The previous tag '17-jre-alpine' was incorrect. Using '17-alpine-jre'.
+FROM amazoncorretto:17-alpine-jre
 
 # Set the working directory for the runtime container
 WORKDIR /app
 
 # Copy the application's runnable JAR from the 'build' stage
-# The JAR name is based on the <artifactId> in pom.xml, which we'll ensure is consistent.
+# The JAR name is based on the <finalName> in pom.xml, which is 'render-demo'
 COPY --from=build /app/target/render-demo.jar render-demo.jar
 
 # Expose the default port for Spring Boot
