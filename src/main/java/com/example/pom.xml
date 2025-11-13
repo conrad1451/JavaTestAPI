@@ -24,8 +24,10 @@ xsi:schemaLocation="https://www.google.com/search?q=http://maven.apache.org/POM/
 
 <dependencies>
 	<!-- Required dependency for creating RESTful web applications -->
-	<groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-starter-web</artifactId>
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-web</artifactId>
+	</dependency>
 	
 	<!-- Optional: Useful for development, automatically restarts app on code changes -->
 	<dependency>
@@ -42,6 +44,10 @@ xsi:schemaLocation="https://www.google.com/search?q=http://maven.apache.org/POM/
 		<plugin>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-maven-plugin</artifactId>
+			<configuration>
+				<!-- Setting the final name for consistent Docker builds -->
+				<finalName>render-demo</finalName>
+			</configuration>
 		</plugin>
 	</plugins>
 </build>
